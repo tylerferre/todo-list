@@ -1,3 +1,4 @@
+// Get Request
 getData = () =>{
     axios.get("https://api.vschool.io/tylerferre/todo")
         .then(res => listData(res.data))
@@ -5,12 +6,15 @@ getData = () =>{
         
 }
 
+const todoForm = document.todoForm
+
 listData = (data) =>{
     
     clearList()
 
+    // Title
     for(let i = 0; i < data.length; i++){
-        const p = document.createElement('p')
+        const p = document.createElement('li')
         p.textContent = data[i].title
         p.style.marginLeft = "30px"
         p.style.marginTop = '50px'
@@ -22,6 +26,7 @@ listData = (data) =>{
         }
     }
 
+    // Description
     for(let i = 0; i < data.length; i++){
         const p = document.createElement('p')
         p.textContent = data[i].description
@@ -32,9 +37,10 @@ listData = (data) =>{
 
         if(data[i].completed === true){
             p.style.textDecoration = 'line-through 2.5px'
-    }
+        }
     }
     
+    // Price
     for(let i = 0; i < data.length; i++){
         const p = document.createElement('p')
         p.textContent = data[i].price
@@ -45,10 +51,13 @@ listData = (data) =>{
 
         if(data[i].completed === true){
             p.style.textDecoration = 'line-through 2.5px'
-    }
+        }
     }
 
+    // Status - Buttons
     for(let i = 0; i < data.length; i++){
+        
+        //Created Elements
         const p = document.createElement('p')
         p.textContent = "Completed: " + data[i].completed + " "
         p.style.textAlign = 'center'
@@ -62,6 +71,12 @@ listData = (data) =>{
         b.style.fontSize = '15px'
         p.appendChild(b)
 
+        const e = document.createElement('button')
+        e.textContent = 'Edit'
+        e.style.height = '35px'
+        e.style.fontSize = '15px'
+        p.appendChild(e)
+
         const x = document.createElement('button')
         x.textContent = 'X'
         x.style.height = '35px'
@@ -73,7 +88,11 @@ listData = (data) =>{
         }
 
         const id = data[i]._id
+        let editClicked = false
 
+    // Button logic
+
+        // Check Button - Put Request 1
         b.addEventListener('click', () =>{
             const complete = {
                 completed: true
@@ -94,11 +113,76 @@ listData = (data) =>{
             }
         })
 
+        b.addEventListener('mouseover', () =>{
+            b.style.color = 'green'
+        })
+
+        b.addEventListener('mouseleave', () =>{
+            b.style.color = 'black'
+        })
+
+        // Edit Button - Put Request 2
+        e.addEventListener('click', () =>{
+            if(editClicked === false){
+                todoForm.title.value = data[i].title
+                todoForm.description.value = data[i].description
+                todoForm.price.value = data[i].price
+                todoForm.img.value = data[i].imgUrl
+                e.textContent = 'Save'
+                e.style.color = 'green'
+                editClicked = true
+            }else if(editClicked === true){
+                const save = {
+                    title: todoForm.title.value,
+                    description: todoForm.description.value,
+                    price: todoForm.price.value,
+                    imgUrl: todoForm.img.value
+                }
+                
+                axios.put("https://api.vschool.io/tylerferre/todo" + "/" + id, save)
+                .then(res => getData())
+                .catch(err => console.log(err))
+                todoForm.title.value = ""
+                todoForm.description.value = ""
+                todoForm.price.value = ""
+                todoForm.img.value = ""
+                editClicked = false
+                e.textContent = 'Edit'
+                e.style.color = 'black'
+            } 
+        })
+
+        e.addEventListener('mouseover', () =>{
+            if(editClicked === false){
+                e.style.color = 'blue'
+            }else if(editClicked === true){
+                e.style.color = 'green'
+            }
+        })
+        
+        e.addEventListener('mouseleave', () =>{
+            if(editClicked === false){
+                e.style.color = 'black'
+            }else if(editClicked === true){
+                e.style.color = 'green'
+            }
+        })
+
+        // Delete Button - Delete Request
         x.addEventListener('click', () =>{
 
+            x.style.color = 'red'
             axios.delete("https://api.vschool.io/tylerferre/todo" + "/" + id)
             .then(res => getData())
             .catch(err => console.log(err))
+        })
+
+        x.addEventListener('mouseover', () =>{
+            x.style.color = 'red'
+        })
+
+        x.addEventListener('mouseleave', () =>{
+            x.style.color = 'black'
         })
     }
 
@@ -113,6 +197,7 @@ listData = (data) =>{
 
 }
 
+// Clear Function
 clearList = () =>{
     const titleEl = document.getElementById('titleDiv')
     while(titleEl.firstChild){
@@ -143,9 +228,7 @@ clearList = () =>{
 
 getData()
 
-
-const todoForm = document.todoForm
-
+// Post Request
 todoForm.addEventListener("submit", (e) =>{
     e.preventDefault()
 
