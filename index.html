@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO List</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <h1 id="headerH1">TODO List</h1>
+    </header>
+
+    <form name="todoForm" id="todoForm">
+        <input type="text" name="title" placeholder="Title" required>
+        <input type="text" name="description" placeholder="Description" required>
+        <input type="number" name="price" placeholder="Price" required>
+        <input type="text" name="img" placeholder="Img Url" required>
+        <button>Add</button>
+    </form>
+
+    <div id="todoListName">
+        <div id="titleDivN">Title</div>
+        <div id="descriptionDivN">Description</div>
+        <div id="priceDivN">Price</div>
+        <div id="imgDivN">Image</div>
+        <div id="statusDivN">Status</div>
+    </div>
+
+    <div id="todoList">
+        <div id="titleDiv"></div>
+        <div id="descriptionDiv"></div>
+        <div id="priceDiv"></div>
+        <div id="imgDiv"></div>
+        <div id="statusDiv"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.6/axios.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

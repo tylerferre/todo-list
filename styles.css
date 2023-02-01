@@ -1,0 +1,63 @@
+body{
+    background-image: url("https://media.istockphoto.com/id/508107640/photo/plain-seamless-plain-light-gray-recycled-scrapbooking-paper-texture-background.jpg?b=1&s=170667a&w=0&k=20&c=njvaiPTMlA__4u1qplKsowYGJszrOqZyVgqQEsiOp_o=");
+}
+
+header{
+    text-align: center;
+    text-decoration: underline;
+    padding: 2%;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 25px;
+}
+
+#todoForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#todoForm input{
+    width: 30%;
+    height: 30px;
+    margin: 5px 0px;
+    border-radius: 12px;
+    text-align: center;
+    font-size: larger;
+}
+
+#todoForm button{
+    width: 100px;
+    height: 40px;
+    margin: 5px 0px;
+    border-radius: 20px;
+    font-size: larger;
+    transition: all 200ms linear;
+}
+
+#todoForm button:hover{
+    background-color: rgb(120, 216, 120);
+}
+
+#todoListName{
+    font-size: 25px;
+    text-align: center;
+    margin: 10px 0px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    border-bottom: 2px solid;
+}
+
+#todoList{
+    font-size: 25px;
+    margin: 10px 0px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+#imgDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
