@@ -57,7 +57,7 @@ listData = (data) =>{
         document.getElementById('statusDiv').appendChild(p)
 
         const b = document.createElement('button')
-        b.textContent = 'Done'
+        b.textContent = 'Check'
         b.style.height = '35px'
         b.style.fontSize = '15px'
         p.appendChild(b)
@@ -79,11 +79,19 @@ listData = (data) =>{
                 completed: true
             }
 
-            console.log(data[i].url)
+            const incomplete = {
+                completed: false
+            }
 
-            axios.put("https://api.vschool.io/tylerferre/todo" + "/" + id, complete)
-            .then(res => getData())
-            .catch(err => console.log(err))
+            if(data[i].completed === false){
+                axios.put("https://api.vschool.io/tylerferre/todo" + "/" + id, complete)
+                    .then(res => getData())
+                    .catch(err => console.log(err))
+            }else if(data[i].completed === true){
+                axios.put("https://api.vschool.io/tylerferre/todo" + "/" + id, incomplete)
+                    .then(res => getData())
+                    .catch(err => console.log(err))
+            }
         })
 
         x.addEventListener('click', () =>{
